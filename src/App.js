@@ -4,6 +4,7 @@ import './App.css';
 import Home from '../src/components/Home/Home';
 import Books from '../src/components/Books/Books';
 import Search from '../src/components/Search/Search';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
