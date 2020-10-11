@@ -1,48 +1,48 @@
 import React, { useContext, useState } from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
 import GearImage from '../assets/icons/gear';
+import { handleDelete } from '../api/book.api';
 import WasteImage from '../assets/icons/waste';
-import BookContext from '../api/BookContext';
-import Axios from 'axios';
+import BookContext from '../api/bookContext';
+// import updateBooks from '../Home/Home';
+// import Axios from 'axios';
 
 
-const BookTable = () => {
+
+const BookTable = (props) => {
   const books = useContext(BookContext);
-  const BaseUrl = 'http://localhost:3010';
 
-  function OptionsModal() {
+  function showOptionsModal() {
     
   }
 
-  const [currentId, setCurrentId] = useState();
-  const [currentBook, setCurrentBook] = useState();
-  const [currentAuthor, setCurrentAuthor] = useState();
-  const [updatedBooks, setUpdatedBooks] = useState();
+  const [currentBookId, setCurrentBookId] = useState();
+  const [currentBookTitle, setCurrentBookTitle] = useState();
+  const [currentBookAuthor, setCurrentBookAuthor] = useState();
 
+  //Modal functions. Showing, closing
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false)
+  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
 
-  //shows delete modal, pcreates current info about book id, title and author
-  function DeleteBookModal(bookId, bookTitle, bookAuthor) {
-    let currentId = bookId;
-    setCurrentId(currentId);
-    let currentTitle = bookTitle;
-    setCurrentBook(currentTitle);
-    let currentAuthor = bookAuthor;
-    setCurrentAuthor(currentAuthor);
+  //shows delete modal, creates current info about book id, title and author
+  function showDeleteBookModal(currentBookTitle, currentBookAuthor, currentBookId) {
+    setCurrentBookTitle(currentBookTitle)
+    setCurrentBookAuthor(currentBookAuthor)
+    setCurrentBookId(currentBookId)
     handleShow()
   }
 
+  
+
   //closes delete modal, uses currentId to delete book from api
-  function handleDelete(currentId) {
-    handleClose();
-    Axios.delete(`${BaseUrl}/book/${currentId}`)
-      .then()
-      .catch(err => console.error(err))
+  function handleDeleteBook(currentBookId) {
+    handleDelete(currentBookId)
+    .then(handleClose())
+      .then(props.updateBooks)
   }
+    
 
   return(
     <>
@@ -65,8 +65,8 @@ const BookTable = () => {
                 <td>{book.author}</td>
                 <td>{book.pages}</td>
                 <td>{book.rating}</td>
-                <td align="center" onClick={OptionsModal}><GearImage /></td>
-                <td align="center" onClick={() => DeleteBookModal(book.id, book.title, book.author)}><WasteImage /></td>
+                <td align="center" onClick={showOptionsModal}><GearImage /></td>
+                <td align="center" onClick={() => showDeleteBookModal(book.title, book.author, book.id)}><WasteImage /></td>
               </tr>
             </>)
           }
@@ -78,10 +78,10 @@ const BookTable = () => {
         <Modal.Title>Warning</Modal.Title>
       </Modal.Header>
   
-      <Modal.Body>Do you want to delete {currentBook} by {currentAuthor}?</Modal.Body>
+      <Modal.Body>Do you want to delete {currentBookTitle} by {currentBookAuthor}?</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-        <Button variant="danger" onClick={() => handleDelete(currentId)}>Delete</Button>
+        <Button variant="secondary" onClick={() => handleClose()}>Cancel</Button>
+        <Button variant="danger" onClick={() => handleDeleteBook(currentBookId)}>Delete</Button>
       </Modal.Footer>
     </Modal>
   </>

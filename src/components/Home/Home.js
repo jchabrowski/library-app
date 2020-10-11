@@ -2,23 +2,27 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
 import BookTable from '../BookTable/BookTable';
-import Axios from 'axios';
-import BookContext from '../api/BookContext';
+import {getBooks} from '../api/book.api';
+// import Axios from 'axios';
+import BookContext from '../api/bookContext';
 
 
 
-class Home extends React.Component{
-  
+
+class Home extends React.Component {
   state = {
     books: []
   }
+  
 
   componentDidMount() {
-    const BaseUrl = 'http://localhost:3010';
-    Axios.get(`${BaseUrl}/books`)
-    .then(
-      res => this.setState({ books: res.data})
-      );  
+    getBooks()
+      .then(res => this.setState({books: res.data}))
+  }
+
+  updateBooks = () => {
+    getBooks()
+      .then(res => this.setState({books: res.data}))
   }
 
 
@@ -28,7 +32,7 @@ class Home extends React.Component{
         <BookContext.Provider value={this.state.books}>
           <Row className="justify-content-center py-5 mx-auto">
             <Col xs={12} s={8} m={6} l={6} lg={6}>
-              <BookTable />
+              <BookTable updateBooks={this.updateBooks}/>
 
               <Link to="/Books">
                 <button>Explore books</button> 
