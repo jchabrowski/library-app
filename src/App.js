@@ -3,7 +3,7 @@ import {HashRouter, Route} from 'react-router-dom';
 import './App.css';
 import Home from '../src/components/Home/Home';
 import Books from '../src/components/Books/Books';
-import Search from '../src/components/Search/Search';
+import AddBook from './components/AddBook/AddBook';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <HashRouter>
         <Route exact path="/" component={Home}></Route>
         <Route path="/Books" component={Books}></Route>
-        <Route path="/Search" component={Search} />
+        <Route path="/AddBook" component={AddBook} ></Route>
     </HashRouter>  
   );
 }

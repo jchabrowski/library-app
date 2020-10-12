@@ -2,9 +2,6 @@
 // import BookContext from './bookContext';
 import Axios from 'axios';
 
-//context
-// const books = useContext(BookContext);
-
 const BaseUrl = 'http://localhost:3010';
 
 //get method, returning books, to be set with setState
@@ -16,4 +13,24 @@ export const getBooks = () => {
 export const handleDelete = (currentId) => {
   return Axios.delete(`${BaseUrl}/book/${currentId}`)
     .catch(err => console.error(err))
+}
+
+export const handlePost = (title, author, pages, rating) => {
+  return Axios.post(`${BaseUrl}/book`, {
+    title: title,
+    author: author,
+    pages: pages,
+    rating: rating
+  })
+    .catch(err => console.error(err))
+}
+
+export const handleBookEdit = (title, author, id, pages, rating) => {
+  return Axios.put(`${BaseUrl}/book/${id}`, {
+    title: title,
+    author: author,
+    pages: pages,
+    rating: rating
+  })
+  .catch(err => console.error(err))
 }
