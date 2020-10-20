@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { Table, Modal, Button, Toast, Form, Row, Col } from 'react-bootstrap';
-import GearImage from '../assets/icons/gear';
-import { handleDelete, handleBookEdit } from '../api/book.api';
-import WasteImage from '../assets/icons/waste';
-import BookContext from '../api/bookContext';
+import { Table, Modal, Button } from 'react-bootstrap';
+import GearImage from '../../icons/gear';
+import { handleDelete } from '../../api/book.api';
+import WasteImage from '../../icons/waste';
+import BookContext from '../../api/bookContext';
 import { Link } from 'react-router-dom';
+import '../../styles/toast.style.css';
+import BookEditModal from './Modals/BookEditModal';
 
 const BookTable = (props) => {
   const books = useContext(BookContext);
@@ -46,7 +48,7 @@ const BookTable = (props) => {
 
   function showEditBookModal(title, author, id, pages, rating) {
     setCurrentBook(title, author, id, pages, rating);
-    handleShowEdit();
+      handleShowEdit()
   }
 
   //closes delete modal, uses currentId to delete book from api
@@ -54,17 +56,20 @@ const BookTable = (props) => {
     handleDelete(currentBookId)
     .then(handleClose())
       .then(props.updateBooks)
+        .catch(err => console.error(err))
     handleShowToast()
   }
     
-  function handleUpdateBook(title, author, id, pages, rating) {
-    handleBookEdit(title, author, id, pages, rating)
-      .then(handleCloseEdit())
-        .then(props.updateBooks)
-  }
+  // function handleUpdateBook(title, author, id, pages, rating) {
+  //   handleBookEdit(title, author, id, pages, rating)
+  //     .then(handleCloseEdit())
+  //       .then(props.updateBooks)
+  //         .catch(err => console.error(err))
+  // }
+
   return(
     <React.Fragment>
-      <Table striped bordered hover>
+      <Table responsive striped bordered hover>
         <thead>
           <tr>
             <th>Title</th>
@@ -77,7 +82,6 @@ const BookTable = (props) => {
         </thead>
         <tbody>
             {books.map(book => 
-              <> 
                 <tr key={book.id}>
                   <td>{book.title}</td>
                   <td>{book.author}</td>
@@ -86,7 +90,7 @@ const BookTable = (props) => {
                   <td align="center" onClick={() => showEditBookModal(book.title, book.author, book.id, book.pages, book.rating)}><GearImage /></td>
                   <td align="center" onClick={() => showDeleteBookModal(book.title, book.author, book.id)}><WasteImage /></td>
                 </tr>
-              </>)
+              )
             }
         </tbody>
       </Table>
@@ -112,71 +116,7 @@ const BookTable = (props) => {
       </Modal>
       
       {/* Book Edit Modal */}
-      <Modal show={showEdit} onHide={handleCloseEdit}>
-        <Modal.Header closeButton >
-          <Modal.Title>Warning</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Do you want to edit {currentBookTitle} by {currentBookAuthor}?</Modal.Body>
-        <Modal.Body>
-        <Form>
-          <Row>
-            <Col xs={6}>
-              <Form.Label>Title</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder={currentBookTitle} 
-                onChange={e => setCurrentBookTitle(e.target.value)}
-              />
-            </Col>
-
-            <Col xs={6}>
-              <Form.Label>Author</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder={currentBookAuthor}
-                onChange={e => setCurrentBookAuthor(e.target.value)}
-              />
-            </Col>
-
-            <Col xs={4} className="my-2">
-              <Form.Label>Pages</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder={currentBookPages} 
-                onChange={e => setCurrentBookPages(e.target.value)}
-              />
-            </Col>
-
-            <Col xs={4} className="my-2">
-              <Form.Label>Rating</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder={currentBookRating} 
-                onChange={e => setCurrentBookRating(e.target.value)}
-              />
-            </Col>
-          </Row>
-        </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" 
-            onClick={() => handleCloseEdit()}>
-              Cancel
-          </Button>
-          <Button variant="primary" 
-            onClick={() => handleUpdateBook(currentBookTitle, currentBookAuthor, currentBookId, currentBookPages, currentBookRating)}>
-              Update
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      {/*Toast message after action */}
-      <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide className="my-3">
-        <Toast.Header>
-          <strong className="mr-auto">Great!</strong>
-        </Toast.Header>
-        <Toast.Body>Operation performed on {currentBookTitle} by {currentBookAuthor} ended succesfully!</Toast.Body>
-      </Toast>
+      <BookEditModal show={showEdit}/>
     </React.Fragment>
   )
 }
