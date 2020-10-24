@@ -1,0 +1,27 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "pages": 661,
+      "rating": 5,
+      "description": "Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world where the only thing of value is the \"spice\" melange, a drug capable of extending life and enhancing consciousness. Coveted across the known universe, melange is a prize worth killing for..."
+    },
+    {
+      "id": 2,
+      "title": "Guards! Guards!",
+      "author": "Terry Pratchett",
+      "pages": 376,
+      "rating": 4,
+      "description": "This is where the dragons went. They lie ... not dead, not asleep, but ... dormant. And although the space they occupy isn\"t like normal space, nevertheless they are packed in tightly. They could put you in mind of a can of sardines, if you thought sardines were huge and scaly. And presumably, somewhere, there\"s a key..."
+    },
+    {
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "pages": 366,
+      "rating": "1",
+      "id": 3
+    }
+  ]
+}
