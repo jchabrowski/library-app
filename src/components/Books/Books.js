@@ -1,15 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Table, Row, Col } from 'react-bootstrap';
 
 const Books = () => {
+  
   return (
-    <div>
-      Books will be held here
-      <br></br>
-      <Link to="/">
-        <button>Go back!</button>
-      </Link>
-    </div>
+    <div>Books will be added here</div>
   );
 };
 

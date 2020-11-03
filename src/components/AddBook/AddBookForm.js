@@ -2,36 +2,16 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Col, Button, Toast } from 'react-bootstrap';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { handlePost } from '../../api/book.api'
+import { handlePost } from '../../api/book.api';
+import SignupSchema from './SignupSchema'
 
 const AddBookForm = () => {
   const [showToast, setShowToast] = useState(false);
 
-  const SignupSchema = Yup.object().shape({
-    title: Yup.string()
-      .min(2, 'Too Short!')
-      .max(100, 'Too Long!')
-      .required('Required'),
-    author: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('Required'),
-    pages: Yup.number()
-      .integer()
-      .min(1, 'Not enough pages')
-      .max(999, '999 pages maximum!')
-      .required('Required'),
-    rating: Yup.number()
-      .integer()
-      .min(1, 'Rate the book on a scale 1-5')
-      .max(5, 'Rate the book on a scale 1-5')
-      .required('Required'),
-  });
 
   const onSuccess = (values) => {
-    handlePost(values.title, values.author, values.pages, values.rating);
-    setShowToast(true);
+    handlePost(values.title, values.author, values.pages, values.rating)
+      .then(setShowToast(true));
   };
 
   return(
@@ -53,7 +33,7 @@ const AddBookForm = () => {
             <Form.Control 
               type="text"
               name="title"
-              placeholder="Lord of The Rings: Return of the King" 
+              placeholder="Enter book title.." 
               value={values.title}
               onChange={handleChange}              
             />
@@ -64,7 +44,7 @@ const AddBookForm = () => {
             <Form.Control
               type="text"
               name="author"
-              placeholder="J.R.R. Tolkien" 
+              placeholder="Enter author.." 
               value={values.author}
               onChange={handleChange}
               />

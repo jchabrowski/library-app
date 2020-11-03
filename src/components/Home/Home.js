@@ -10,7 +10,8 @@ import BookContext from '../../api/bookContext';
 
 class Home extends React.Component {
   state = {
-    books: []
+    books: [],
+    showEditModal: false,
   }
   
 
@@ -21,7 +22,6 @@ class Home extends React.Component {
   updateBooks = () => {
     getBooks()
       .then(res => this.setState({books: res.data}))
-        .catch(err => console.error(err))
   }
 
 
@@ -30,7 +30,7 @@ class Home extends React.Component {
       <React.Fragment>
         <BookContext.Provider value={this.state.books}>
           <Row className="justify-content-center py-5 mx-auto">
-            <Col xs={12} s={8} m={6} l={6} lg={6}>
+            <Col xs={12} s={8} m={6} l={6} md={6}>
               <BookTable updateBooks={this.updateBooks}/>
             </Col>
           </Row>

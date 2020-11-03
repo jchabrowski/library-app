@@ -1,6 +1,5 @@
 import React from 'react';
 import {HashRouter, Route} from 'react-router-dom';
-import './App.css';
 import Home from '../src/components/Home/Home';
 import Books from '../src/components/Books/Books';
 import AddBook from './components/AddBook/AddBook';
