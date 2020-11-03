@@ -10,23 +10,19 @@ import BookEditModal from './Modals/BookEditModal';
 const BookTable = (props) => {
   const books = useContext(BookContext);
 
-  //Hooks determining the current book
   const [currentBookId, setCurrentBookId] = useState();
   const [currentBookTitle, setCurrentBookTitle] = useState();
   const [currentBookAuthor, setCurrentBookAuthor] = useState();
   const [currentBookPages, setCurrentBookPages] = useState();
   const [currentBookRating, setCurrentBookRating] = useState();
 
-  //Delete Modal toggle. Showing, closing
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShowDelete = () => setShow(true);
 
-  //Toast message toggle
   const [showToast, setShowToast] = useState(false);
   const handleShowToast = () => setShowToast(true);
 
-  //sets current title, author and id, triggered in Delete and Edit Modals
   function setCurrentBook(title, author, id, pages, rating) {
     setCurrentBookTitle(title);
     setCurrentBookAuthor(author);
@@ -77,7 +73,9 @@ const BookTable = (props) => {
                     showDeleteBookModal(book.title, book.author, book.id)
                   }
                 >
-                  <WasteImage />
+                  <Button variant="link">
+                    <WasteImage />
+                  </Button>
                 </td>
               </tr>
           ))}
