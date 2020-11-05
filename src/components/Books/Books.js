@@ -4,7 +4,7 @@ import React from 'react';
 const Books = () => {
   
   return (
-    <div>Books will be added here</div>
+    <div>Search menu will be added here</div>
   );
 };
 

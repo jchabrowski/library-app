@@ -2,7 +2,6 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import BookTable from '../BookTable/BookTable';
 import { getBooks } from '../../api/book.api';
-// import Axios from 'axios';
 import BookContext from '../../api/bookContext';
 
 
@@ -21,7 +20,7 @@ class Home extends React.Component {
 
   updateBooks = () => {
     getBooks()
-      .then(res => this.setState({books: res.data}))
+      .then(res => this.setState({ books: res.data }))
   }
 
 

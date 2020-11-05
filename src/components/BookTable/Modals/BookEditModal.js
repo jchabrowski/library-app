@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Form, Col, Button, Toast } from 'react-bootstrap';
 import { Formik } from 'formik';
-import { getBooks, handleBookEdit } from '../../../api/book.api';
+import { handleBookEdit } from '../../../api/book.api';
 import GearImage from "../../../icons/gear";
 import SignupSchema from '../../AddBook/SignupSchema';
 
@@ -21,7 +21,8 @@ const BookEditModal = (props) => {
       values.pages, 
       values.rating
       ).then(setShowToast(true))
-        .then(getBooks())
+        .then(setShow(false))
+          .then(props.updateBooks)
   };
 
   return (

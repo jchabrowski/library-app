@@ -65,7 +65,7 @@ const BookTable = (props) => {
                 <td>{book.pages}</td>
                 <td>{book.rating}</td>
                 <td className="text-center">
-                  <BookEditModal book={book} />
+                  <BookEditModal book={book} updateBooks={props.updateBooks}/>
                 </td>
                 <td 
                   className="text-center"
@@ -94,7 +94,6 @@ const BookTable = (props) => {
         </Button>
       </Link>
       
-      {/*Delete Book Modal */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Warning</Modal.Title>
